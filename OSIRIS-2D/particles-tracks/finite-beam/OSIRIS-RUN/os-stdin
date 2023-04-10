@@ -1,0 +1,302 @@
+!PhysicalSystem: 
+!bunch of electrons propagate into overdense plasma.
+!The moving electrons are initially located in a small region 
+!at the centre of left edge of the simulation domain. 
+!
+!
+!Physical Parameters
+!   Plasma Length = --- mm
+!   Plasma Density = 1.1e+22  cm^-3
+!   Laser Wavelength = 800 nm
+!   omega_L=2.35e+15;  omega_p=5.915e+15;
+!   c/omega_p=5.0e-06 
+!   x_nor=5.0e-06;   t_nor=1.69e-16; 
+!-----------------------------------------------------------------------------------
+
+simulation
+{
+n0 = 1.1d+22,
+}
+
+!----------NODE CONFIGURATION-------------
+node_conf
+{
+node_number(1:2) =  5, 4,
+if_periodic(1:2) = .false., .false.,
+}
+
+!----------SPATIAL GRID--------
+
+grid 
+{
+nx_p(1:2) = 1500, 1500, 
+coordinates = "cartesian",
+}
+
+!----------TIME STEP AND GLOBAL DATA DUMP TIMESTEP NUMBER-------
+time_step 
+{
+
+dt = 1.0e-2,
+ndump  =  12,
+
+}
+
+!----------RESTART INFORMATION------
+restart 
+{
+
+ndump_fac = 5, 
+if_restart = .false.,
+if_remold = .true.,
+
+}
+
+!----------SPATIAL LIMITS OF THE SIMULATIONS----------------------------------------
+!Note: This includes information about motion of simulation box.
+
+space 
+{
+
+xmin(1:2) =   0.0 , 0.0, 
+xmax(1:2) =  30 ,30, 
+if_move= .false., .false., 
+
+}
+
+!----------TIME LIMITS---------
+
+time 
+{
+
+tmin = 0.0d0, 
+tmax  = 40,
+
+}
+
+!----------BOUNDARY CONDITIONS FOR EM FIELDS-----------
+
+emf_bound 
+{
+
+type(1:2,1) =   60,  60,
+type(1:2,2) =  60, 60,
+
+}
+
+!----------DIAGNOSTICS FOR EM FIELDS-----------------------
+!diag_emf 
+!{
+
+!ndump_fac = 1,
+!reports = "e1", "e2", "e3","b1","b2","b3", 
+
+!}
+
+!----------NUMBER OF PARTICLE SPECIES-----------------------
+
+particles 
+{  
+
+num_species = 3,
+
+}
+
+!----------ElecSpecies1 Starts Here---------------------------
+species
+{
+
+name = "Elec1",
+num_par_max = 7560000,
+rqm=-1.0,
+num_par_x(1:2) = 8, 8, 
+vth(1:3) = 0.000442 , 0.000442 , 0.0d0,
+vfl(1:3) = 0.90d0 , 0.0d0 , 0.0d0,
+den_min = 1.0d-10,
+interpolation =  "cubic",
+add_tag = .true., 
+
+}
+
+profile
+{
+
+profile_type(1) = "math func", 
+
+math_func_expr = "if((((x2-15.0)^2)<=49.0)&&(x1<=6),0.1,0.0)",
+
+}
+
+spe_bound
+{
+
+type(1:2,1) = 5, 5,
+type(1:2,2) = 5, 5,
+
+}
+
+diag_species
+{
+
+ndump_fac = 1,
+!reports = "charge",
+
+!ndump_fac_pha = 1,
+!ndump_fac_raw = 1,
+
+ps_xmin(1:2) =  0.0,  0.0,
+ps_xmax(1:2) = 30.0 ,30.0,
+ps_nx(1:2)   = 1024, 1024,
+
+ps_pmin(1:3) = -1.0, -1.0, -1.0,
+ps_pmax(1:3) =  1.0,  1.0, 1.0,
+ps_np(1:3)   =  1024,  1024, 1024,
+if_ps_p_auto(1:3) = .true., .true., .true.,
+
+!phasespaces = "p1x1", "p2x2", "p3x1",
+
+raw_fraction=0.1,  
+ndump_fac_tracks=1,
+niter_tracks=1,
+file_tags='electrons1.tags',
+ifdmp_tracks_efl(1:3)=.true., .true., .true.,
+ifdmp_tracks_bfl(1:3)=.true., .true., .true.,      
+}
+!----------ElecSpecies1 Ends Here---------------------------
+
+!----------ElecSpecies2 Starts Here---------------------------
+species
+{
+
+name = "Elec2",
+num_par_max = 7560000,
+rqm=-1.0,
+num_par_x(1:2) = 8, 8, 
+vth(1:3) = 0.000442d0 , 0.000442d0 , 0.0d0,
+vfl(1:3) = 0.0d0 , 0.0d0 , 0.0d0,
+den_min = 1.0d-10,
+interpolation =  "cubic",
+add_tag = .true., 
+
+}
+
+profile
+{
+profile_type(1) = "math func", 
+math_func_expr = "if((((x2-15.0)^2)<=49.0)&&(x1<=6),0.9,0.0)",
+}
+
+spe_bound
+{
+
+type(1:2,1) = 5, 5,
+type(1:2,2) = 5, 5,
+
+}
+
+diag_species
+{
+
+ndump_fac = 1,
+!reports = "charge",
+
+!ndump_fac_pha = 1,
+!ndump_fac_raw = 1,
+
+ps_xmin(1:2) =  0.0,  0.0,
+ps_xmax(1:2) = 30.0 ,30.0,
+ps_nx(1:2)   = 1024, 1024,
+
+ps_pmin(1:3) = -1.0, -1.0, -1.0,
+ps_pmax(1:3) =  1.0,  1.0, 1.0,
+ps_np(1:3)   =  1024,  1024, 1024,
+if_ps_p_auto(1:3) = .true., .true., .true.,
+
+!phasespaces = "p1x1", "p2x2", "p3x1",
+
+raw_fraction=0.1,
+ndump_fac_tracks=1,
+niter_tracks=1,
+file_tags='electrons2.tags',
+ifdmp_tracks_efl(1:3)=.true., .true., .true.,
+ifdmp_tracks_bfl(1:3)=.true., .true., .true.,        
+}
+!----------ElecSpecies2 Ends Here---------------------------
+
+!----------ElecSpecies3 Starts Here---------------------------
+species
+{
+name = "Elec3",
+num_par_max = 7560000,
+rqm=-1.0,
+num_par_x(1:2) = 8, 8, 
+vth(1:3) = 0.000442 , 0.000442 , 0.0d0,
+vfl(1:3) = 0.0d0 , 0.0d0 , 0.0d0,
+den_min = 1.0d-10,
+interpolation =  "cubic",
+add_tag = .true., 
+
+}
+
+profile
+{
+profile_type(1) = "math func", 
+math_func_expr = "if((((x2-15.0)^2)>49.0)||(x1>6),1.0,0.0)",
+}
+
+spe_bound
+{
+
+type(1:2,1) = 5, 5,
+type(1:2,2) = 5, 5,
+
+}
+
+diag_species
+{
+
+ndump_fac = 1,
+!reports = "charge",
+
+!ndump_fac_pha = 1,
+!ndump_fac_raw = 1,
+
+ps_xmin(1:2) =  0.0,  0.0,
+ps_xmax(1:2) = 30.0 ,30.0,
+ps_nx(1:2)   = 1024, 1024,
+
+ps_pmin(1:3) = -1.0, -1.0, -1.0,
+ps_pmax(1:3) =  1.0,  1.0, 1.0,
+ps_np(1:3)   =  1024,  1024, 1024,
+if_ps_p_auto(1:3) = .true., .true., .true.,
+
+!phasespaces = "p1x1", "p2x2", "p3x1",
+
+raw_fraction=0.1,   
+ndump_fac_tracks=1,
+niter_tracks=1,
+file_tags='electrons3.tags',
+ifdmp_tracks_efl(1:3)=.true., .true., .true.,
+ifdmp_tracks_bfl(1:3)=.true., .true., .true.,     
+}
+!----------ElecSpecies3 Ends Here---------------------------
+
+
+current
+{
+
+}
+
+smooth 
+{
+ifsmooth(1) = .true.,
+smooth_level(1)=5,
+swfj(1:3,1,1) = 1,2,1,
+swfj(1:3,2,1) = 1,2,1,
+swfj(1:3,3,1) = 1,2,1,
+swfj(1:3,4,1) = 1,2,1,
+swfj(1:3,5,1) = -5,14,-5,
+
+}
+
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<Metadata BlockSize="32 32 32"  DimensionLength="600 400 400"  FilterCoefficients="1"  LiftingCoefficients="1"  MSBFirst="1"  NumTransforms="3"  VDFVersion="5" >
+<GridPermutation Type="Long">
+  0 1 2 
+</GridPermutation>
+<NumTimeSteps Type="Long">
+  1 
+</NumTimeSteps>
+<PeriodicBoundary Type="Long">
+  0 0 0 
+</PeriodicBoundary>
+<Extents Type="Double">
+  0 0 0 1 0.6666666666666666 0.6666666666666666 
+</Extents>
+<MissingValue Type="Double">
+  
+</MissingValue>
+<Comment Type="String">
+  
+</Comment>
+<CoordinateSystem Type="String">
+  cartesian
+</CoordinateSystem>
+<CoordinateVariables Type="String">
+  NONE NONE ELEVATION
+</CoordinateVariables>
+<GridType Type="String">
+  regular
+</GridType>
+<VariableNames Type="String">
+  var1
+</VariableNames>
+<Variables2DXY Type="String">
+  
+</Variables2DXY>
+<Variables2DXZ Type="String">
+  
+</Variables2DXZ>
+<Variables2DYZ Type="String">
+  
+</Variables2DYZ>
+<Variables3D Type="String">
+  var1
+</Variables3D>
+<TimeStep>
+<UserTime Type="Double">
+  0 
+</UserTime>
+<AuxBasePath Type="String">
+  auxdata/auxdata.0000
+</AuxBasePath>
+<UserTimeStampString Type="String">
+  0
+</UserTimeStampString>
+<var1>
+<BasePath Type="String">
+  var1/var1.0000
+</BasePath>
+</var1>
+</TimeStep>
+</Metadata>
